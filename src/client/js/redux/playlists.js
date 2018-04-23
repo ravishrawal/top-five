@@ -24,8 +24,8 @@ export const createPlaylist = (playlist) => {
 
 export const getActivePlaylist = (playlistId) => {
   return (dispatch) => {
-    axios.get(`/api/playlists/${playlistId}`)
-    .then(playlist => dispatch(getPlaylist(playlist)))
+    axios.get(`/api/playlist/${playlistId}`)
+    .then(playlist => dispatch(getPlaylist(playlist.data)) )
   };
 };
 
@@ -42,8 +42,11 @@ export const newPlaylist = (name, userId) => {
 //Reducers
 
 export default (state = {}, action) => {
+  console.log(action);
   switch (action.type) {
-    case CREATE_PLAYLIST || GET_PLAYLIST:
+    case CREATE_PLAYLIST:
+      return Object.assign({}, action.playlist);
+    case GET_PLAYLIST:
       return Object.assign({}, action.playlist);
     default:
       return state;
